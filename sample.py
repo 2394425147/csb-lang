@@ -5,24 +5,37 @@ import math
 import random
 
 with open("chart.json", "r", encoding="utf-8") as f:
-    # Required to process
+    # Required to process chart info (e.g. time seeking to note start/end)
     chart.parse(f)
 
+# Sets the tempo to use for timing.beat
 timing.set_tempo(197)
 
-title = "vivid/stasis is my favourite gay game"
+# Example: Sine wave text
+
+title = "Hello, procedural storyboard!"
 
 for i in range(len(title)):
+    # Sets the time to the start of the first note
     timing.seek(start=0)
+
+    # Creates a text element with the [i]th character in the title
     txt = text.create(title[i])
+
+    # Sets the initial opacity of the text
     txt.opacity = 0
+
+    # Animates the text
     startTime = timing.current_time
-    for j in range(60 * 2):
+
+    # Animations are interpolated
+    for j in range(120):
         txt.state(properties={"x": -300 + i * 15, "y": math.sin(i / 2 + timing.current_time - startTime) * 30, "opacity": 1})
         timing.current_time += 1 / 2
+
+    # Fade out the text over the next 2 seconds
     timing.beat(count=2)
     txt.state(properties={"x": -300 + i * 15, "y": math.sin(i / 2) * 30, "opacity": 0})
 
-
-
-storyboard.export("D:/Tools/CytoidPlayer/player/storyboard.json")
+# Finally, export the storyboard
+storyboard.export("./storyboard.json")
