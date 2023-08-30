@@ -8,7 +8,7 @@ def set_tempo(value: float):
     pass
 
 
-def beat(subdivision: int = 1, count: int = 1, progress: bool = True) -> float:
+def beat(subdivision: int = 1, count: float = 1, progress: bool = True) -> float:
     """
     Gets the time in seconds of a beat with the current tempo
     :param subdivision: How many subdivisions per beat
