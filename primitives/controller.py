@@ -1,6 +1,6 @@
 ﻿from core import timing
-from core.storyboard import storyboard_definition
 from primitives.base import PrimitiveBase
+from core.storyboard import storyboard_definition
 
 
 class SceneController(PrimitiveBase):

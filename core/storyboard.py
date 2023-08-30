@@ -1,23 +1,17 @@
 ﻿import json
 
-from primitives.controller import SceneController
-from primitives.line import Line
-from primitives.note_controller import NoteController
-from primitives.sprite import Sprite
-from primitives.template import Template
-from primitives.text import Text
-from primitives.video import Video
+from primitives.base import PrimitiveBase
 
 
 class StoryboardDefinition(object):
     def __init__(self):
-        self.texts: list[Text] = []
-        self.sprites: list[Sprite] = []
-        self.lines: list[Line] = []
-        self.videos: list[Video] = []
-        self.controllers: list[SceneController] = []
-        self.note_controllers: list[NoteController] = []
-        self.templates: list[Template] = []
+        self.texts: list[PrimitiveBase] = []
+        self.sprites: list[PrimitiveBase] = []
+        self.lines: list[PrimitiveBase] = []
+        self.videos: list[PrimitiveBase] = []
+        self.controllers: list[PrimitiveBase] = []
+        self.note_controllers: list[PrimitiveBase] = []
+        self.templates: list[PrimitiveBase] = []
 
     pass
 

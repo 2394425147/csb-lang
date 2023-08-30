@@ -1,5 +1,5 @@
 ﻿from core import timing
-from core.storyboard import storyboard_definition
+from core.storyboard import storyboard_definitio
 from primitives.base import PrimitiveBase
 
 
