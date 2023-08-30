@@ -13,5 +13,5 @@ class Template(PrimitiveBase):
 def create() -> Template:
     template = Template()
     storyboard_definition.templates.append(template)
-    template.time = timing.current_time
+    template.time = timing.now
     return template

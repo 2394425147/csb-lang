@@ -13,5 +13,5 @@ class Sprite(PrimitiveBase):
 def create(path: str) -> Sprite:
     sprite = Sprite(path)
     storyboard_definition.sprites.append(sprite)
-    sprite.time = timing.current_time
+    sprite.time = timing.now
     return sprite

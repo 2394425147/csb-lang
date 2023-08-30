@@ -17,12 +17,12 @@ def beat(subdivision: int = 1, count: int = 1, progress: bool = True) -> float:
     :return: Time in seconds
     """
     global current_tempo
-    global current_time
+    global now
 
     beat_duration = 60 / current_tempo / subdivision * count
 
     if progress:
-        current_time += beat_duration
+        now += beat_duration
 
     return beat_duration
 
@@ -43,7 +43,7 @@ def seek(tick: int | None = None,
     :param override_tempo: Set the tempo to the value defined in the chart
     :return: Time in seconds
     """
-    global current_time
+    global now
     global current_tempo
 
     accumulated_time = 0
@@ -74,10 +74,10 @@ def seek(tick: int | None = None,
                 break
 
     if progress:
-        current_time = accumulated_time
+        now = accumulated_time
 
     return accumulated_time
 
 
 current_tempo: float = 0
-current_time: float = 0
+now: float = 0

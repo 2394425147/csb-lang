@@ -13,5 +13,5 @@ class Text(PrimitiveBase):
 def create(text: str) -> Text:
     text = Text(text)
     storyboard_definition.texts.append(text)
-    text.time = timing.current_time
+    text.time = timing.now
     return text

@@ -13,5 +13,5 @@ class Video(PrimitiveBase):
 def create() -> Video:
     video = Video()
     storyboard_definition.videos.append(video)
-    video.time = timing.current_time
+    video.time = timing.now
     return video

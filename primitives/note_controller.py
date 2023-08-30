@@ -13,5 +13,5 @@ class NoteController(PrimitiveBase):
 def create() -> NoteController:
     note_controller = NoteController()
     storyboard_definition.note_controllers.append(note_controller)
-    note_controller.time = timing.current_time
+    note_controller.time = timing.now
     return note_controller

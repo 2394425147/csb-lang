@@ -26,12 +26,12 @@ for i in range(len(title)):
     txt.opacity = 0
 
     # Animates the text
-    startTime = timing.current_time
+    startTime = timing.now
 
     # Animations are interpolated
     for j in range(120):
-        txt.state(properties={"x": -300 + i * 15, "y": math.sin(i / 2 + timing.current_time - startTime) * 30, "opacity": 1})
-        timing.current_time += 1 / 2
+        txt.state(properties={"x": -300 + i * 15, "y": math.sin(i / 2 + timing.now - startTime) * 30, "opacity": 1})
+        timing.now += 1 / 2
 
     # Fade out the text over the next 2 seconds
     timing.beat(count=2)

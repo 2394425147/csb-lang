@@ -12,5 +12,5 @@ class Line(PrimitiveBase):
 def create() -> Line:
     line = Line()
     storyboard_definition.lines.append(line)
-    line.time = timing.current_time
+    line.time = timing.now
     return line

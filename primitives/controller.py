@@ -13,5 +13,5 @@ class SceneController(PrimitiveBase):
 def create() -> SceneController:
     scene_controller = SceneController()
     storyboard_definition.controllers.append(scene_controller)
-    scene_controller.time = timing.current_time
+    scene_controller.time = timing.now
     return scene_controller

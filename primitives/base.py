@@ -9,7 +9,7 @@ class PrimitiveBase(object):
     pass
 
     def state(self, properties: dict, time: float | None = None):
-        new_state = State(time if time is not None else timing.current_time)
+        new_state = State(time if time is not None else timing.now)
 
         # pass all the properties to the new state
         for key, value in properties.items():
