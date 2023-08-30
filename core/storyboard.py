@@ -4,6 +4,7 @@ from primitives.controller import SceneController
 from primitives.line import Line
 from primitives.note_controller import NoteController
 from primitives.sprite import Sprite
+from primitives.template import Template
 from primitives.text import Text
 from primitives.video import Video
 
@@ -16,7 +17,7 @@ class StoryboardDefinition(object):
         self.videos: list[Video] = []
         self.controllers: list[SceneController] = []
         self.note_controllers: list[NoteController] = []
-        self.templates: list[PrimitiveBase] = []
+        self.templates: list[Template] = []
 
     pass
 
