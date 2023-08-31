@@ -11,7 +11,7 @@ class StoryboardDefinition(object):
         self.videos: list[PrimitiveBase] = []
         self.controllers: list[PrimitiveBase] = []
         self.note_controllers: list[PrimitiveBase] = []
-        self.templates: list[PrimitiveBase] = []
+        self.templates: dict[PrimitiveBase] = {}
 
     pass
 

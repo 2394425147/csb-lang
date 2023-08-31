@@ -10,8 +10,9 @@ class Video(PrimitiveBase):
     pass
 
 
-def create() -> Video:
+def create(path: str) -> Video:
     video = Video()
+    video.path = path
     storyboard_definition.videos.append(video)
     video.time = timing.now
     return video
