@@ -21,6 +21,5 @@ class PrimitiveBase(object):
 class State(object):
     def __init__(self, time: float):
         self.time: float = time
-        self.easing = "linear"
 
     pass
