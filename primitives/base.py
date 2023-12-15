@@ -4,7 +4,11 @@
 class PrimitiveBase(object):
     def __init__(self):
         self.time = 0
+
+        # store the variable name of this instance
+        self.id = str(id(self))
         self.states: list[State] = []
+        self.internal_children: list[PrimitiveBase] = []
 
     pass
 
@@ -23,6 +27,14 @@ class PrimitiveBase(object):
             new_state.__dict__[key] = value
 
         self.states.append(new_state)
+
+    def add_child(self, child: 'PrimitiveBase'):
+        self.internal_children.append(child)
+        child.parent_id = self.id
+
+
+    def to_dict(self):
+        return {k: v for k, v in self.__dict__.items() if not k.startswith('internal_')}
 
 
 class State(object):
