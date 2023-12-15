@@ -1,5 +1,5 @@
 ﻿from core import chart
-from core.chart import tick_to_time, time_to_tick, tick_to_tempo
+from core.chart import tick_to_time, time_to_tick, tick_to_tempo, TempoList
 
 
 def set_tempo(value: float):
@@ -8,13 +8,14 @@ def set_tempo(value: float):
     pass
 
 
-def beat(subdivision: int = 1, count: float = 1, progress: bool = True) -> float:
+def beat(subdivision: int = 1, count: float = 1, progress: bool = True, override_tempo: bool = True) -> float:
     """
     Gets the time in seconds of a beat with the current tempo
     :param subdivision: How many subdivisions per beat
     :param count: How many beats to include
     :param progress: Whether to increment the current time
-    :return: Time in seconds
+    :param override_tempo: If `progress` is `True`, set the tempo to the value defined in the chart
+    :returns: Time in seconds
     """
     global current_tempo
     global now
@@ -23,6 +24,9 @@ def beat(subdivision: int = 1, count: float = 1, progress: bool = True) -> float
 
     if progress:
         now += beat_duration
+
+        if override_tempo:
+            set_tempo(tick_to_tempo(tempo_at_time(now).value))
 
     return beat_duration
 
@@ -41,7 +45,7 @@ def seek(tick: int | None = None,
     :param end: Gets the time from the end of the given note ID (Used for hold notes)
     :param progress: Whether to increment the current time
     :param override_tempo: Set the tempo to the value defined in the chart
-    :return: Time in seconds
+    :returns: Time in seconds
     """
     global now
     global current_tempo
@@ -68,15 +72,36 @@ def seek(tick: int | None = None,
         accumulated_time += tick_to_time(end_tick)
 
     if override_tempo:
-        for i in range(len(chart.chart_definition.tempo_list)):
-            if chart.chart_definition.tempo_list[i].tick >= accumulated_tick:
-                current_tempo = tick_to_tempo(chart.chart_definition.tempo_list[i].value)
-                break
+        current_tempo = tick_to_tempo(tempo_at_tick(accumulated_tick).value)
 
     if progress:
         now = accumulated_time
 
     return accumulated_time
+
+
+def tempo_at_time(time: float) -> TempoList:
+    """
+    Finds the tempo at a given time.
+
+    :param time: The time at which to retrieve the tempo.
+    :returns: The tempo at the given time.
+    """
+    return tempo_at_tick(time_to_tick(time))
+
+
+def tempo_at_tick(tick: int) -> TempoList:
+    """
+    Finds the tempo at a given tick.
+
+    :param tick: The tick at which to retrieve the tempo.
+    :returns: The tempo at the given tick.
+    """
+    for tempo in chart.chart_definition.tempo_list:
+        if tempo.tick >= tick:
+            return tempo
+
+    return chart.chart_definition.tempo_list[-1]
 
 
 current_tempo: float = 0

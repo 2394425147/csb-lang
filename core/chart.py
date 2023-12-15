@@ -197,6 +197,12 @@ chart_definition: ChartDefinition | None = None
 
 # https://github.com/Cytoid/Cytoid/blob/main/Assets/Scripts/Game/Chart/Chart.cs#L237
 def tick_to_time(tick: int) -> float:
+    """
+    Convert a tick value to a corresponding time value.
+
+    :param tick: The tick value to convert.
+    :returns: The corresponding time value.
+    """
     global chart_definition
     if chart_definition is None:
         return 0
@@ -220,6 +226,12 @@ def tick_to_time(tick: int) -> float:
 
 
 def time_to_tick(time: float) -> int:
+    """
+    Calculate the tick value corresponding to a given time.
+
+    :param time: The time value in seconds.
+    :returns: The tick value corresponding to the given time.
+    """
     global chart_definition
     current_time = 0.0
     current_tick = 0.0
@@ -236,11 +248,38 @@ def time_to_tick(time: float) -> int:
 
 
 def tick_to_tempo(tick: int) -> float:
+    """
+    Convert a tick value to a tempo.
+
+    :param tick: The tick value to be converted.
+    :returns: The corresponding tempo value.
+    """
     global chart_definition
     return 1 / (tick / chart_definition.time_base * 2e-6)
 
 
+def note_pos(note_id: int) -> (float, float):
+    """
+    Retrieves the normalized position of a note.
+
+    :param note_id: The ID of the note.
+    :returns: X and Y coordinates of the note, ranging from 0 to 1.
+    """
+    global chart_definition
+    note = chart_definition.note_list[note_id]
+    page = chart_definition.page_list[note.page_index]
+    raw_y = (note.tick - page.start_tick) / (page.end_tick - page.start_tick)
+    actual_y = raw_y if page.scan_line_direction > 0 else 1 - raw_y
+    return note.x, actual_y
+
+
 def parse(file):
+    """
+    Parses a Cytoid chart file.
+
+    :param file:
+    :return:
+    """
     from core.timing import set_tempo
     global chart_definition
     chart_definition = chart_definition_from_dict(json.load(file))
