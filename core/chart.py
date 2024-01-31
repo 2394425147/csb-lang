@@ -210,18 +210,18 @@ def tick_to_time(tick: int) -> float:
     result: float = 0
 
     current_tick: int = 0
-    current_time_zone = -1
+    current_time_zone = 0
 
-    for i in range(len(chart_definition.tempo_list)):
+    for i in range(1, len(chart_definition.tempo_list)):
         if chart_definition.tempo_list[i].tick >= tick:
             break
 
-        result += (chart_definition.tempo_list[i].tick - current_tick) * 2e-6 * chart_definition.tempo_list[i - 1].value / chart_definition.time_base
+        result += (chart_definition.tempo_list[i].tick - current_tick) * 1e-6 * chart_definition.tempo_list[i - 1].value / chart_definition.time_base
 
         current_tick = chart_definition.tempo_list[i].tick
         current_time_zone += 1
 
-    result += (tick - current_tick) * 2e-6 * chart_definition.tempo_list[current_time_zone].value / chart_definition.time_base / 2
+    result += (tick - current_tick) * 1e-6 * chart_definition.tempo_list[current_time_zone].value / chart_definition.time_base / 2
     return result
 
 
@@ -244,7 +244,7 @@ def time_to_tick(time: float) -> int:
         else:
             break
 
-    return (current_tick + (time - current_time) * 2 / chart_definition.tempo_list[i - 1].value * 1e6 * chart_definition.time_base).__round__()
+    return round(current_tick + (time - current_time) / chart_definition.tempo_list[i - 1].value * 1e6 * chart_definition.time_base)
 
 
 def tick_to_tempo(tick: int) -> float:
